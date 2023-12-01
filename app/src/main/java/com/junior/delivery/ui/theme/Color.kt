@@ -2,6 +2,10 @@ package com.junior.delivery.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
+val SoftPurple = Color(0xFFDFD5EC)
+val NormalPurple = Color(0xFFD0BCFF)
+val UltraPurple = Color(0xFF6750A4)
+
 val Purple80 = Color(0xFFD0BCFF)
 val PurpleGrey80 = Color(0xFFCCC2DC)
 val Pink80 = Color(0xFFEFB8C8)
