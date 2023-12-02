@@ -52,24 +52,32 @@ android {
 }
 
 dependencies {
-    // ConstraintLayout
+    // ConstraintLayout -> Structure our composables
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
-    // NavController
+    // NavController -> Navigation between screens
     implementation("androidx.navigation:navigation-compose:2.7.5")
 
-    // Retrofit
+    // Retrofit -> API
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 
-    // Coil
+    // Coil -> It supports images with URL
     implementation("io.coil-kt:coil-compose:2.5.0")
 
-    // Dagger Hilt
+    // Access a ViewModel instance from a Composable -> val viewModel: MyViewModel = viewModel()
+    // We won't use it cause we have hiltViewModel()
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+
+    // Dagger Hilt -> Our classes and viewModels will be @Inject, external classes will be @Provides
     implementation("com.google.dagger:hilt-android:2.48.1")
     kapt("com.google.dagger:hilt-android-compiler:2.48.1")
+    kapt("androidx.hilt:hilt-compiler:1.1.0")
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
 
-    // Live Data
+    // Live Data -> It's designed to hold and observe a piece of data within an Android application's
+    // lifecycle while providing reactive updates to UI components.
+    // It's used with viewModels
     implementation("androidx.compose.runtime:runtime-livedata:1.5.4")
 
     implementation("androidx.core:core-ktx:1.12.0")

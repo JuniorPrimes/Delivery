@@ -1,6 +1,6 @@
 package com.junior.delivery.core.dependencyinjection
-
-import com.jaumelloretenriquez.coach.core.security.PasswordHash
+/*
+import com.junior.delivery.core.security.PasswordHash
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,4 +13,4 @@ class CryptoModule {
     @Singleton
     @Provides
     fun provideCryptoPassword(): PasswordHash = PasswordHash()
-}
+}*/

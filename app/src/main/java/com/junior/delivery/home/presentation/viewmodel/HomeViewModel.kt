@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     var getRestaurantsUseCase:GetRestaurantsUseCase
-):ViewModel() {
+): ViewModel() {
     private val _restaurants = MutableLiveData<List<RestaurantModel>>()
     val restaurants: LiveData<List<RestaurantModel>> = _restaurants
 

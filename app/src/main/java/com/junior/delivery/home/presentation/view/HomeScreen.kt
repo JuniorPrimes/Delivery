@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.junior.delivery.R
@@ -39,49 +40,40 @@ import com.junior.delivery.ui.theme.NormalPurple
 import com.junior.delivery.ui.theme.SoftPurple
 import com.junior.delivery.ui.theme.TitleTextStyle
 import com.junior.delivery.ui.theme.UltraPurple
-import javax.inject.Inject
 
-class HomeScreen @Inject constructor(
-private val homeViewModel: HomeViewModel
-) {
+@Composable
+fun HomeScreen(navController: NavHostController,homeViewModel:HomeViewModel = hiltViewModel()) {
 
-    @Composable
-    operator fun invoke(id: Int, username: String, navController: NavHostController) {
-        val restaurantList by homeViewModel.restaurants.observeAsState(emptyList())
+    val restaurantList by homeViewModel.restaurants.observeAsState(emptyList())
 
-        LaunchedEffect(restaurantList) {
-            restaurantList.forEachIndexed { index, restaurant ->
-                Log.i("Restaurant $index", "$restaurant")
-            }
+    LaunchedEffect(restaurantList) {
+        restaurantList.forEachIndexed { index, restaurant ->
+            Log.i("Restaurant $index", "$restaurant")
         }
+    }
+    ConstraintLayout(
+        modifier = Modifier
+            .fillMaxSize()
+            //.padding(horizontal = 30.dp, vertical = 15.dp)
+            .background(SoftPurple)
+            .verticalScroll(rememberScrollState())
+    ) {
+        val (header, body, footer) = createRefs()
 
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Text(text = "Es la pantalla principal $id, ->$username<-")
-        }
-        ConstraintLayout(
-            modifier = Modifier
-                .fillMaxSize()
-                //.padding(horizontal = 30.dp, vertical = 15.dp)
-                .background(SoftPurple)
-                .verticalScroll(rememberScrollState())
-        ) {
-            val (header, body, footer) = createRefs()
+        Header(modifier = Modifier.constrainAs(header) {
+            top.linkTo(parent.top)
+            bottom.linkTo(body.top)
+        })
+        Body(modifier = Modifier.constrainAs(body) {
+            top.linkTo(header.bottom)
+            bottom.linkTo(footer.top)
+        }, restaurantList,navController)
+        Footer(modifier = Modifier.constrainAs(footer) {
+            top.linkTo(body.bottom)
+            bottom.linkTo(parent.bottom)
+        })
 
-            Header(modifier = Modifier.constrainAs(header) {
-                top.linkTo(parent.top)
-                bottom.linkTo(body.top)
-            })
-            Body(modifier = Modifier.constrainAs(body) {
-                top.linkTo(header.bottom)
-                bottom.linkTo(footer.top)
-            }, restaurantList,navController)
-            Footer(modifier = Modifier.constrainAs(footer) {
-                top.linkTo(body.bottom)
-                bottom.linkTo(parent.bottom)
-            })
-
-            createVerticalChain(header, body, footer, chainStyle = ChainStyle.SpreadInside)
-        }
+        createVerticalChain(header, body, footer, chainStyle = ChainStyle.SpreadInside)
     }
 }
 
@@ -114,7 +106,7 @@ fun Body(modifier: Modifier, restaurantList: List<RestaurantModel>, navControlle
                     .fillMaxWidth()
                     .background(NormalPurple)
                     .padding(16.dp)
-                    .clickable { navController.navigate(Routes.DetailsScreen.route) }
+                    .clickable { navController.navigate(Routes.SignInScreen.route) }
             ) {
                 Column {
                     Text(
