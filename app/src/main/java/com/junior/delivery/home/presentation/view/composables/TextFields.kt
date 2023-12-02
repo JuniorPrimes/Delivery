@@ -11,17 +11,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.junior.delivery.ui.theme.UltraPurple
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BasicTextField(
-    value: TextFieldValue,
+    value: String,
     placeholder: String,
     label: String,
-    onTextChanged: (TextFieldValue) -> Unit,
+    onTextChanged: (String) -> Unit,
     imageVector: ImageVector
 ) {
     val textFieldColors = TextFieldDefaults.textFieldColors(
@@ -40,7 +39,7 @@ fun BasicTextField(
         value = value,
         placeholder = { Text(text = placeholder) },
         label = { Text(text = label) },
-        onValueChange = { onTextChanged(it) },
+        onValueChange = onTextChanged ,
         colors = textFieldColors,
         maxLines = 1,
         singleLine = true,

@@ -1,11 +1,11 @@
-package com.junior.delivery.signin.presentation.composables
+package com.junior.delivery.signup.presentation.view.composables
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Done
-import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -19,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -33,6 +34,7 @@ fun BasicTextField(
     value: String,
     placeholder: String,
     label: String,
+    imageVector: ImageVector,
     onTextChanged: (String) -> Unit,
 ) {
     val textFieldColors = TextFieldDefaults.textFieldColors(
@@ -59,12 +61,15 @@ fun BasicTextField(
             .fillMaxWidth()
             .border(1.dp, UltraPurple),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+        leadingIcon = {
+            Icon(imageVector = imageVector, contentDescription = label)
+        }
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PasswordTextField(password: String, onTextChanged: (String) -> Unit) {
+fun PasswordTextField(password: String,imageVector: ImageVector, onTextChanged: (String) -> Unit) {
     var passwordVisibility by remember { mutableStateOf(false) }
     val textFieldColors = TextFieldDefaults.textFieldColors(
         focusedLabelColor = UltraPurple,
@@ -92,9 +97,9 @@ fun PasswordTextField(password: String, onTextChanged: (String) -> Unit) {
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         trailingIcon = {
             val image = if (passwordVisibility) {
-                Icons.Filled.Lock
+                Icons.Filled.Close
             } else {
-                Icons.Filled.Done
+                Icons.Filled.Search
             }
             IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
                 Icon(
@@ -110,7 +115,7 @@ fun PasswordTextField(password: String, onTextChanged: (String) -> Unit) {
             PasswordVisualTransformation()
         },
         leadingIcon = {
-            Icon(imageVector = Icons.Filled.Lock, contentDescription = stringResource(id = R.string.password))
+            Icon(imageVector = imageVector, contentDescription = stringResource(id = R.string.password))
         }
     )
 }

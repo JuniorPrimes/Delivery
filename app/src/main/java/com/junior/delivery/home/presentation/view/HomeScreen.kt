@@ -96,7 +96,7 @@ fun Header(modifier: Modifier) {
     ) {
         Text(text = "Home", style = TitleTextStyle, fontSize = 30.sp)
 
-        var textValue by remember { mutableStateOf(TextFieldValue()) }
+        var textValue by remember { mutableStateOf(String()) }
         SearchProductTextField(value = textValue) { newValue -> textValue = newValue }
     }
 }
@@ -142,11 +142,11 @@ fun Body(modifier: Modifier, restaurantList: List<RestaurantModel>, navControlle
 }
 
 @Composable
-fun SearchProductTextField(value: TextFieldValue, onTextChanged: (TextFieldValue) -> Unit) {
+fun SearchProductTextField(value: String, onTextChanged: (String) -> Unit) {
     BasicTextField(
         value = value,
-        placeholder = "xd",
-        label = "xd",
+        placeholder = stringResource(id = R.string.search_product),
+        label = stringResource(id = R.string.search_product),
         onTextChanged = onTextChanged,
         imageVector = Icons.Default.Search
     )

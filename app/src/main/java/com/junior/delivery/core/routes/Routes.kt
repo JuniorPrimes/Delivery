@@ -2,7 +2,7 @@ package com.junior.delivery.core.routes
 
 sealed class Routes(val route: String) {
     object  SignInScreen: Routes("signInScreen")
-    //object  SignUpScreen: Routes("signUpScreen")
+    object  SignUpScreen: Routes("signUpScreen")
     object  HomeScreen: Routes("homeScreen")
         /*
     object  HomeScreen: Routes("homeScreen/{id}?username={username}") {

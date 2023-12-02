@@ -1,4 +1,4 @@
-package com.junior.delivery.signin.presentation.composables
+package com.junior.delivery.signin.presentation.view.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

@@ -1,4 +1,4 @@
-package com.junior.delivery.signin.presentation
+package com.junior.delivery.signin.presentation.viewmodel
 
 import android.util.Log
 import android.util.Patterns

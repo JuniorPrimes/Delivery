@@ -1,7 +1,8 @@
-package com.junior.delivery.signin.presentation
+package com.junior.delivery.signin.presentation.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,10 +34,11 @@ import androidx.navigation.NavHostController
 import com.junior.delivery.R
 import com.junior.delivery.core.routes.LocalNavController
 import com.junior.delivery.core.routes.Routes
-import com.junior.delivery.signin.presentation.composables.BasicTextField
-import com.junior.delivery.signin.presentation.composables.CircularButton
-import com.junior.delivery.signin.presentation.composables.PasswordTextField
-import com.junior.delivery.signin.presentation.composables.RoundedButton
+import com.junior.delivery.signin.presentation.view.composables.BasicTextField
+import com.junior.delivery.signin.presentation.view.composables.CircularButton
+import com.junior.delivery.signin.presentation.view.composables.PasswordTextField
+import com.junior.delivery.signin.presentation.view.composables.RoundedButton
+import com.junior.delivery.signin.presentation.viewmodel.SignInViewModel
 import com.junior.delivery.ui.theme.SoftPurple
 import com.junior.delivery.ui.theme.UltraPurple
 
@@ -175,23 +177,17 @@ fun OauthButtons(signInViewModel: SignInViewModel) {
             icon = painterResource(id = R.drawable.ic_facebook),
             text = "Facebook",
             color = Color.Blue
-        ) {
-
-        }
+        ) {}
         CircularButton(
             icon = painterResource(id = R.drawable.ic_google),
             text = "Google",
             color = Color.Red
-        ) {
-
-        }
+        ) {}
         CircularButton(
             icon = painterResource(id = R.drawable.ic_github),
             text = "Github",
             color = Color.Black
-        ) {
-
-        }
+        ) {}
     }
 }
 
@@ -216,8 +212,7 @@ fun SignUpButton(navController: NavHostController) {
             text = stringResource(id = R.string.sign_up),
             Modifier
                 .padding(horizontal = 8.dp)
-                //.clickable { navController.navigate(SignUpScreen.route) }
-                    ,
+                .clickable { navController.navigate(Routes.SignUpScreen.route) },
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             color = UltraPurple,
