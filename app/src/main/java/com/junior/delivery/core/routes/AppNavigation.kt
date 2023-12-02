@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.junior.delivery.details.presentation.view.DetailsScreen
 import com.junior.delivery.home.presentation.view.HomeScreen
 import com.junior.delivery.signin.presentation.view.SignInScreen
 import com.junior.delivery.signup.presentation.view.SignUpScreen
@@ -18,14 +19,17 @@ fun AppNavigation() {
 
     CompositionLocalProvider(LocalNavController provides navController) {
         NavHost(navController = navController, startDestination = Routes.SignInScreen.route){
-            composable(route = Routes.HomeScreen.route){
-                HomeScreen()
-            }
             composable(route = Routes.SignInScreen.route){
                 SignInScreen()
             }
             composable(route = Routes.SignUpScreen.route){
                 SignUpScreen()
+            }
+            composable(route = Routes.HomeScreen.route){
+                HomeScreen()
+            }
+            composable(route = Routes.DetailsScreen.route){
+                DetailsScreen()
             }
         }
     }

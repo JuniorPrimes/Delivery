@@ -1,4 +1,4 @@
-package com.junior.delivery.home.presentation.view
+package com.junior.delivery.details.presentation.view
 
 import android.util.Log
 import androidx.compose.foundation.background
@@ -21,9 +21,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -35,31 +32,30 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.junior.delivery.R
-import com.junior.delivery.core.routes.LocalNavController
-import com.junior.delivery.core.routes.Routes
-import com.junior.delivery.home.data.model.RestaurantModel
-import com.junior.delivery.home.presentation.view.composables.BasicTextField
-import com.junior.delivery.home.presentation.viewmodel.HomeViewModel
+import com.junior.delivery.details.data.model.FoodModel
+import com.junior.delivery.details.presentation.composables.BasicTextField
+import com.junior.delivery.details.presentation.viewmodel.DetailsViewModel
 import com.junior.delivery.ui.theme.NormalPurple
 import com.junior.delivery.ui.theme.SoftPurple
 import com.junior.delivery.ui.theme.TitleTextStyle
 import com.junior.delivery.ui.theme.UltraPurple
 
 @Composable
-fun HomeScreen(navController: NavHostController = LocalNavController.current,homeViewModel:HomeViewModel = hiltViewModel()) {
-    val restaurantList by homeViewModel.restaurants.observeAsState(emptyList())
+fun DetailsScreen(detailsViewModel: DetailsViewModel = hiltViewModel()) {
+    val foodList by detailsViewModel.foods.observeAsState(emptyList())
 
-    LaunchedEffect(restaurantList) {
-        restaurantList.forEachIndexed { index, restaurant ->
-            Log.i("Restaurant $index", "$restaurant")
+    LaunchedEffect(foodList) {
+        foodList.forEachIndexed { index, food ->
+            Log.i("Food $index", "$food")
         }
     }
+
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
+            //.padding(horizontal = 30.dp, vertical = 15.dp)
             .background(SoftPurple)
             .verticalScroll(rememberScrollState())
     ) {
@@ -72,7 +68,7 @@ fun HomeScreen(navController: NavHostController = LocalNavController.current,hom
         Body(modifier = Modifier.constrainAs(body) {
             top.linkTo(header.bottom)
             bottom.linkTo(footer.top)
-        }, restaurantList,navController)
+        }, foodList)
         Footer(modifier = Modifier.constrainAs(footer) {
             top.linkTo(body.bottom)
             bottom.linkTo(parent.bottom)
@@ -91,15 +87,13 @@ fun Header(modifier: Modifier) {
             .padding(horizontal = 30.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text(text = "Home", style = TitleTextStyle, fontSize = 30.sp)
-
-        var textValue by remember { mutableStateOf(String()) }
-        SearchProductTextField(value = textValue) { newValue -> textValue = newValue }
+        Text(text = "Foods", style = TitleTextStyle, fontSize = 30.sp)
+        SearchProductTextField("") { }
     }
 }
 
 @Composable
-fun Body(modifier: Modifier, restaurantList: List<RestaurantModel>, navController: NavHostController) {
+fun Body(modifier: Modifier, foodList: List<FoodModel>) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -107,23 +101,22 @@ fun Body(modifier: Modifier, restaurantList: List<RestaurantModel>, navControlle
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        restaurantList.forEachIndexed { _, restaurant ->
+        foodList.forEachIndexed { _, food ->
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(NormalPurple)
                     .padding(16.dp)
-                    .clickable { navController.navigate(Routes.DetailsScreen.route) }
             ) {
                 Column {
                     Text(
-                        text = restaurant.name,
+                        text = food.name,
                         color = Color.Black,
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Bold
                     )
                     //Text(text = restaurant.description, color = Color.Black, fontSize = 12.sp)
-                    val imageUrl = restaurant.coverUrl
+                    val imageUrl = food.coverURL
                     AsyncImage(
                         model = imageUrl,
                         contentDescription = null,
@@ -131,6 +124,7 @@ fun Body(modifier: Modifier, restaurantList: List<RestaurantModel>, navControlle
                             .height(90.dp) // Adjust height as needed
                             .fillMaxWidth()
                             .clip(MaterialTheme.shapes.medium) // Apply shape if needed
+                            .clickable { /* Handle click event */ } // Optional: Add click behavior
                     )
                 }
             }
@@ -142,8 +136,8 @@ fun Body(modifier: Modifier, restaurantList: List<RestaurantModel>, navControlle
 fun SearchProductTextField(value: String, onTextChanged: (String) -> Unit) {
     BasicTextField(
         value = value,
-        placeholder = stringResource(id = R.string.search_product),
-        label = stringResource(id = R.string.search_product),
+        placeholder = "Buscar producto",
+        label = "Buscar producto",
         onTextChanged = onTextChanged,
         imageVector = Icons.Default.Search
     )

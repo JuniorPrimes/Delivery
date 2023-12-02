@@ -1,5 +1,6 @@
 package com.junior.delivery.core.dependencyinjection
 
+import com.junior.delivery.details.data.network.FoodClient
 import com.junior.delivery.home.data.network.RestaurantClient
 import com.junior.delivery.signin.data.network.SignInClient
 import dagger.Module
@@ -42,7 +43,13 @@ object NetworkModule{
 
     @Singleton
     @Provides
-    fun provideRestaurantApiClient(retrofit: Retrofit):RestaurantClient{
+    fun provideRestaurantClient(retrofit: Retrofit): RestaurantClient {
         return retrofit.create(RestaurantClient::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideFoodClient(retrofit: Retrofit): FoodClient {
+        return retrofit.create(FoodClient::class.java)
     }
 }
