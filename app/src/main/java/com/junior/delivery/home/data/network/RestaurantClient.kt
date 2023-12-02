@@ -4,7 +4,7 @@ import com.junior.delivery.home.data.model.RestaurantModel
 import retrofit2.Response
 import retrofit2.http.GET
 
-interface RestaurantApiClient {
+interface RestaurantClient {
     @GET("rest/v1/restaurant?select=*")
     suspend fun getRestaurants(): Response<List<RestaurantModel>>
 }

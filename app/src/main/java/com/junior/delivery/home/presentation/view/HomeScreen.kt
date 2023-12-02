@@ -13,18 +13,24 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ChainStyle
@@ -33,8 +39,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.junior.delivery.R
+import com.junior.delivery.core.routes.LocalNavController
 import com.junior.delivery.core.routes.Routes
 import com.junior.delivery.home.data.model.RestaurantModel
+import com.junior.delivery.home.presentation.view.composables.BasicTextField
 import com.junior.delivery.home.presentation.viewmodel.HomeViewModel
 import com.junior.delivery.ui.theme.NormalPurple
 import com.junior.delivery.ui.theme.SoftPurple
@@ -42,7 +50,7 @@ import com.junior.delivery.ui.theme.TitleTextStyle
 import com.junior.delivery.ui.theme.UltraPurple
 
 @Composable
-fun HomeScreen(navController: NavHostController,homeViewModel:HomeViewModel = hiltViewModel()) {
+fun HomeScreen(navController: NavHostController = LocalNavController.current,homeViewModel:HomeViewModel = hiltViewModel()) {
 
     val restaurantList by homeViewModel.restaurants.observeAsState(emptyList())
 
@@ -87,7 +95,9 @@ fun Header(modifier: Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(text = "Home", style = TitleTextStyle, fontSize = 30.sp)
-        //SearchProductTextField("") { }
+
+        var textValue by remember { mutableStateOf(TextFieldValue()) }
+        SearchProductTextField(value = textValue) { newValue -> textValue = newValue }
     }
 }
 
@@ -131,16 +141,16 @@ fun Body(modifier: Modifier, restaurantList: List<RestaurantModel>, navControlle
     }
 }
 
-/*@Composable
-fun SearchProductTextField(value: String, onTextChanged: (String) -> Unit) {
+@Composable
+fun SearchProductTextField(value: TextFieldValue, onTextChanged: (TextFieldValue) -> Unit) {
     BasicTextField(
         value = value,
-        placeholder = "Buscar producto",
-        label = "Buscar producto",
+        placeholder = "xd",
+        label = "xd",
         onTextChanged = onTextChanged,
         imageVector = Icons.Default.Search
     )
-}*/
+}
 
 @Composable
 fun Footer(modifier: Modifier) {

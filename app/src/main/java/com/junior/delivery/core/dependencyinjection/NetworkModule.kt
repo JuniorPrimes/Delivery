@@ -1,6 +1,7 @@
 package com.junior.delivery.core.dependencyinjection
 
-import com.junior.delivery.home.data.network.RestaurantApiClient
+import com.junior.delivery.home.data.network.RestaurantClient
+import com.junior.delivery.signin.data.network.SignInClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,21 +38,11 @@ object NetworkModule{
 
     @Singleton
     @Provides
-    fun provideRestaurantApiClient(retrofit: Retrofit):RestaurantApiClient{
-        return retrofit.create(RestaurantApiClient::class.java)
+    fun provideSignInClient(retrofit: Retrofit): SignInClient = retrofit.create(SignInClient::class.java)
+
+    @Singleton
+    @Provides
+    fun provideRestaurantApiClient(retrofit: Retrofit):RestaurantClient{
+        return retrofit.create(RestaurantClient::class.java)
     }
 }
-
-/*@Module
-@InstallIn(SingletonComponent::class)
-class NetworkModule {
-
-    @Singleton
-    @Provides
-    fun provideRetrofit(): Retrofit = Retrofit.Builder().baseUrl("https://run.mocky.io/")
-        .addConverterFactory(GsonConverterFactory.create()).build()
-
-    @Singleton
-    @Provides
-    fun provideSignInClient(retrofit: Retrofit): SignInClient = retrofit.create(SignInClient::class.java)
-}*/

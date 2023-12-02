@@ -1,5 +1,5 @@
 package com.junior.delivery.core.security
-/*
+
 import android.util.Base64
 import java.security.SecureRandom
 import java.security.spec.KeySpec
@@ -37,4 +37,4 @@ class PasswordHash {
         val hash = hashPassword(password.toCharArray(), salt)
         return Pair(hash, Base64.encodeToString(salt, Base64.DEFAULT))
     }
-}*/
+}

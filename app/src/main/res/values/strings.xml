@@ -1,4 +1,19 @@
 <resources>
     <string name="app_name">Delivery</string>
-    <string name="copyright">Copyright Junior Delivery</string>
+    <string name="close_app">Close</string>
+    <string name="login">Enter</string>
+    <string name="password">Password</string>
+    <string name="show_password">Show Password</string>
+    <string name="user">User</string>
+    <string name="email_or_phone">Email or phone</string>
+    <string name="username">Username</string>
+    <string name="full_name">Full name</string>
+    <string name="name_and_surname">Name and surname</string>
+    <string name="register">Register</string>
+    <string name="sign_up_question">You do not have an account?</string>
+    <string name="sign_up">Sign Up!!!</string>
+    <string name="sign_in_question">Do you already have an account?</string>
+    <string name="sign_in">Sign In!!!</string>
+    <string name="motivational_phrase">Every delivery, turn, and completion is a strategic move toward victory! Document each action as if it\'s the winning shot.</string>
+    <string name="copyright">Junior Copyright</string>
 </resources>
