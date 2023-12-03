@@ -6,6 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavHostController
+import com.junior.delivery.core.routes.Routes
 import com.junior.delivery.signin.domain.SignInUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -43,13 +45,15 @@ class SignInViewModel @Inject constructor(
             && _password.value!!.contains(Regex("[a-z]"))
             && _password.value!!.contains(Regex("[0-9]"))
 
-    fun onSignInButtonCLicked() {
+    fun onSignInButtonCLicked(navController: NavHostController) {
         viewModelScope.launch {
             _isLoading.value = true
-            val result = signInUseCase(_emailOrPhone.value!!, _password.value!!)
+            var result = signInUseCase(_emailOrPhone.value!!, _password.value!!)
+            result= true
 
             if(result) {
-                Log.i("COACH", "Navigate to Home")
+                navController.navigate(Routes.HomeScreen.route)
+                Log.i("Delivery", "Navigate to Home")
             }
             _isLoading.value = false
         }

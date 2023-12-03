@@ -126,12 +126,11 @@ fun Body(modifier: Modifier, signInViewModel: SignInViewModel, navController: Na
         PasswordInputText(password) {
             signInViewModel.onSignInChanged(emailOrPhone = emailOrPhone, password = it)
         }
-        Spacer(modifier = Modifier.size(16.dp))
+        Spacer(modifier = Modifier.size(32.dp))
         //ForgotPassword(Modifier.align(Alignment.End))
-        Spacer(modifier = Modifier.size(16.dp))
         SignInButton(isSignInButtonEnable, signInViewModel,navController)
         Spacer(modifier = Modifier.size(32.dp))
-        OauthButtons(signInViewModel = signInViewModel)
+        OauthButtons()
     }
 }
 
@@ -157,21 +156,17 @@ fun PasswordInputText(password: String, onTextChanged: (String) -> Unit) {
 fun SignInButton(
     loginEnable: Boolean,
     signInViewModel: SignInViewModel,
-    navController: NavHostController
+    navController: NavHostController = LocalNavController.current
 ) {
     RoundedButton(
         text = stringResource(id = R.string.login),
-        //onClick = { signInViewModel.onSignInButtonCLicked() },
-        onClick = {
-            navController.navigate(Routes.HomeScreen.route)
-        },
-        //enabled = loginEnable
-        enabled = true
+        onClick = { signInViewModel.onSignInButtonCLicked(navController) },
+        enabled = loginEnable
     )
 }
 
 @Composable
-fun OauthButtons(signInViewModel: SignInViewModel) {
+fun OauthButtons() {
     Row(horizontalArrangement = Arrangement.SpaceAround, modifier = Modifier.fillMaxSize()) {
         CircularButton(
             icon = painterResource(id = R.drawable.ic_facebook),
