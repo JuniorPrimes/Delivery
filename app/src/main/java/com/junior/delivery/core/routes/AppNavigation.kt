@@ -12,6 +12,7 @@ import com.junior.delivery.home.presentation.view.HomeScreen
 import com.junior.delivery.signin.presentation.view.SignInScreen
 import com.junior.delivery.signup.presentation.view.SignUpScreen
 
+// Global variable
 val LocalNavController = compositionLocalOf<NavHostController> { error("No NavController found!") }
 @Composable
 fun AppNavigation() {

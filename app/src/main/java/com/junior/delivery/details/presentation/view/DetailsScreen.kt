@@ -32,8 +32,11 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import coil.compose.AsyncImage
 import com.junior.delivery.R
+import com.junior.delivery.core.routes.LocalNavController
 import com.junior.delivery.details.data.model.FoodModel
 import com.junior.delivery.details.presentation.composables.BasicTextField
 import com.junior.delivery.details.presentation.viewmodel.DetailsViewModel
@@ -43,19 +46,39 @@ import com.junior.delivery.ui.theme.TitleTextStyle
 import com.junior.delivery.ui.theme.UltraPurple
 
 @Composable
-fun DetailsScreen(detailsViewModel: DetailsViewModel = hiltViewModel()) {
+fun DetailsScreen(navController: NavHostController = LocalNavController.current,
+                  detailsViewModel: DetailsViewModel = hiltViewModel()) {
     val foodList by detailsViewModel.foods.observeAsState(emptyList())
 
-    LaunchedEffect(foodList) {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val arguments = navBackStackEntry?.arguments
+    val restaurantId = arguments?.getString("id")
+    restaurantId?.let {
+        detailsViewModel.setRestaurantId(it)
+    }
+
+    detailsViewModel.loadDishesByRestaurantId()
+    val dishByRestaurantIdList by detailsViewModel.dishesByRestaurantId.observeAsState(emptyList())
+
+    detailsViewModel.loadFoodsById()
+    val idFoodsList by detailsViewModel.idFoods.observeAsState(emptyList())
+
+    LaunchedEffect(foodList,dishByRestaurantIdList,idFoodsList) {
         foodList.forEachIndexed { index, food ->
-            Log.i("Food $index", "$food")
+            Log.i("Food $index", "$restaurantId $food")
+        }
+        dishByRestaurantIdList.forEachIndexed { index, dishByRestaurantId ->
+            Log.i("Dish $index", "$dishByRestaurantId")
+        }
+        Log.i("DishList",dishByRestaurantIdList.size.toString())
+        idFoodsList.forEachIndexed { index, id ->
+            Log.i("IdFood $index", "$id")
         }
     }
 
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
-            //.padding(horizontal = 30.dp, vertical = 15.dp)
             .background(SoftPurple)
             .verticalScroll(rememberScrollState())
     ) {

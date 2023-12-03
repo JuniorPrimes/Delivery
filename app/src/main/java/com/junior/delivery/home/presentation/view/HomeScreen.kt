@@ -113,7 +113,7 @@ fun Body(modifier: Modifier, restaurantList: List<RestaurantModel>, navControlle
                     .fillMaxWidth()
                     .background(NormalPurple)
                     .padding(16.dp)
-                    .clickable { navController.navigate(Routes.DetailsScreen.route) }
+                    .clickable { navController.navigate(Routes.DetailsScreen.createRoute(restaurant.id)) }
             ) {
                 Column {
                     Text(
